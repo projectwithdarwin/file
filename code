@@ -1,0 +1,27 @@
+import pandas as pd
+import numpy as np
+
+
+
+email=pd.read_csv('email.csv')
+
+email['date']=pd.to_datetime(email['date'])
+
+df=email.groupby(['email'])['date'].shift(1)
+
+email['newdate']=pd.to_datetime(df)
+
+email['newdate'][0]-email['date'][0]
+
+
+
+
+i=0
+
+for i in range(email.size):
+    if (email['date'][i]-email['newdate'][i]).days>30 :
+        email['result']=1
+    else:
+        email['result']=0
+
+
